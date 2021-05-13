@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Fablabs.io</string>
+    <string name="filterdialog_back">Back</string>
+    <string name="filterdialog_clear">Clear</string>
+</resources>

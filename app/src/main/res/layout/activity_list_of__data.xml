@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/titlepage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:lineSpacingExtra="8dp"
+        android:text="Choose your poison."
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/quicksand_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subtitlepage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="8dp"
+        android:text=" "
+        android:visibility="gone"
+        android:textColor="#4C5067"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlepage" />
+
+    <View
+        android:id="@+id/divpage"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:background="#25293E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitlepage" />
+
+    <TextView
+        android:id="@+id/intropage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:lineSpacingExtra="8dp"
+        android:text="----"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divpage" />
+
+    <TextView
+        android:id="@+id/subintropage"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="8dp"
+        android:text="The text dummy could help anyone \nto design faster and better."
+        android:textColor="#4C5067"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intropage" />
+
+
+    <LinearLayout
+        android:id="@+id/fitone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subintropage">
+
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:ibv_badgeTextSize="8sp"
+            app:ibv_fixedBadgeRadius="10dp"
+            app:ibv_badgeTextStyle="bold"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="#00ACC1"
+            app:ibv_badgeLimitValue="false"
+            android:src="@drawable/ic_capacitor" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fitonetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:text=" Inventory Consumables"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fitonedesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingRight="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="All the materials you need \n for  your project"
+                android:textColor="#4C5067"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fittwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fitone">
+
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:ibv_badgeTextSize="8sp"
+            app:ibv_fixedBadgeRadius="10dp"
+            app:ibv_badgeTextStyle="bold"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="#00ACC1"
+            app:ibv_badgeLimitValue="false"
+            android:src="@drawable/ic_drilling_machine" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fittwotitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inventory Tools"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fittwodesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="All the tools that you need to DIY"
+                android:fontFamily="@font/quicksand_medium"
+                android:textColor="#4C5067"
+                android:paddingRight="10dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fitthree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fittwo">
+
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:ibv_badgeTextSize="8sp"
+            app:ibv_fixedBadgeRadius="10dp"
+            app:ibv_badgeTextStyle="bold"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="#00ACC1"
+            app:ibv_badgeLimitValue="false"
+            android:src="@drawable/ic_laser_cutting_machine" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fitthreetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inventory Machines"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fitthreedesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="When the tools are not enough to get the result"
+                android:textColor="#4C5067"
+
+                android:paddingRight="10dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fitfour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fitthree">
+
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            app:ibv_badgeTextSize="8sp"
+            app:ibv_fixedBadgeRadius="10dp"
+            app:ibv_badgeTextStyle="bold"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="#00ACC1"
+            app:ibv_badgeLimitValue="false"
+            android:src="@drawable/ic_team" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fitfourtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Makers and Fabricators"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fitfourdesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingRight="10dp"
+                android:text="When you want it to be done for you by our magicians"
+                android:textColor="#4C5067"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/bgprogress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="0dp"
+        android:background="#80DDD0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/btncart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="CART"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

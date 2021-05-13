@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#0D122C</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">#0D122C</color>
+
+    <color name="filterdialog_background">#0D122C</color>
+    <color name="filterdialog_toolbar">#0D122C</color>
+    <color name="filterdialog_toolbar_text">#FFFFFF</color>
+    <color name="filterdialog_searchbox_border">@color/colorPrimaryDark</color>
+    <color name="filterdialog_searchbox_background">#FDFDFD</color>
+    <color name="filterdialog_searchbox_text">@color/colorTextStandart</color>
+    <color name="filterdialog_searchbox_hint">#747373</color>
+    <color name="filterdialog_searchbox_icon">#0e242e</color>
+    <color name="filterdialog_row_text">@color/colorTextStandart</color>
+    <color name="greygreen">#80DDD0</color>
+    <color name="colorred">#FF0000</color>
+</resources>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Activity.CartActivity">
+
+
+    <TextView
+        android:id="@+id/subintropage"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="8dp"
+        android:text="Choose date from Calender"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/quicksand_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divpage"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:background="#25293E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subintropage" />
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pagesColor="@color/colorPrimaryDark"
+        android:padding="20dp"
+        app:abbreviationsBarColor="@color/colorPrimaryDark"
+        app:abbreviationsLabelsColor="@android:color/white"
+        app:daysLabelsColor="@android:color/white"
+        app:headerColor="@color/black"
+        app:eventsEnabled="true"
+        app:selectionColor="@android:color/white"
+        app:selectionLabelColor="@color/colorAccent"
+        app:anotherMonthsDaysLabelsColor="@color/colorPrimaryDark"
+        app:todayLabelColor="#D84315"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divpage" >
+
+    </com.applandeo.materialcalendarview.CalendarView>
+
+    <LinearLayout
+        android:id="@+id/fitone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bgbtnadd"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        >
+
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            app:ibv_badgeTextSize="8sp"
+            app:ibv_fixedBadgeRadius="10dp"
+            app:ibv_badgeTextStyle="bold"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="#FF8892"
+            app:ibv_badgeLimitValue="false"
+            android:src="@drawable/ic_cart__1_" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fitonetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of selected items"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/fitonedesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Selected Date: "
+                android:textColor="#4C5067"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bgprogress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="0dp"
+        android:background="#FF8892"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/proceed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Book Date"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:fontFamily="@font/quicksand_medium"
+        app:layout_constraintBottom_toBottomOf="@+id/bgprogress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bgprogress" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressBackgroundTint="#FF0000"
+        android:progressTint="#E40707"
+        app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/divpage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

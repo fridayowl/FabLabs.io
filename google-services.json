@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "71990282680",
+    "project_id": "fablabs-7546c",
+    "storage_bucket": "fablabs-7546c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71990282680:android:d19e9a2a3896b1d1e4e74d",
+        "android_client_info": {
+          "package_name": "android.fablabs.io"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71990282680-h93ktk6uu7q5p8kdr7kkorvrigt925tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "android.fablabs.io",
+            "certificate_hash": "742724a091640a48691499b2cd468337d1ad50fc"
+          }
+        },
+        {
+          "client_id": "71990282680-tkptqk11vv4osafhsmcv9ng77dqdn6cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8dYsFoGW2iXZn4MdpCaT2B2_U2AzjJrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71990282680-tkptqk11vv4osafhsmcv9ng77dqdn6cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
