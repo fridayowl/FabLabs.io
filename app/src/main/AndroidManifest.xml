@@ -9,24 +9,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FabLabsio">
-        <activity android:name=".Activity.WhatAppActivity"
+        <activity
+            android:name=".Activity.PhoneAuth"
+            android:exported="true"
+            android:label="@string/title_activity_phone_auth"
+            android:theme="@style/Theme.FabLabsio.NoActionBar" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.FabLabsio.NoActionBar" />
+        <activity
+            android:name=".Activity.WhatAppActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".Activity.Homepage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Homepage"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.CartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.CartActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.List_of_Data"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.List_of_Data"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity.GoogleSignin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity.GoogleSignin"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,6 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="android.fablabs.io"

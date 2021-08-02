@@ -2,4 +2,6 @@
     <string name="app_name">Fablabs.io</string>
     <string name="filterdialog_back">Back</string>
     <string name="filterdialog_clear">Clear</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_phone_auth">PhoneAuth</string>
 </resources>
