@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/amshi/StudioProjects/FabLabs.io/app/src/main/res/layout/activity_google_signin.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/amshi/StudioProjects/FabLabs.io/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/amshi/StudioProjects/FabLabs.io/app/src/main/res/layout/phoneauth.xml" value="0.24818840579710144" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

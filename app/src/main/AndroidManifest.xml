@@ -10,15 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FabLabsio">
         <activity
+            android:name=".Activity.OtpActivity"
+            android:exported="true"
+            android:label="@string/title_activity_otp"
+            android:theme="@style/Theme.FabLabsio" />
+        <activity
             android:name=".Activity.PhoneAuth"
             android:exported="true"
             android:label="@string/title_activity_phone_auth"
-            android:theme="@style/Theme.FabLabsio.NoActionBar" />
-        <activity
-            android:name=".MainActivity2"
-            android:exported="true"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.FabLabsio.NoActionBar" />
+            android:theme="@style/Theme.FabLabsio.NoActionBar" /> <!-- <activity -->
+        <!-- android:name=".MainActivity2" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/title_activity_main2" -->
+        <!-- android:theme="@style/Theme.FabLabsio.NoActionBar" /> -->
         <activity
             android:name=".Activity.WhatAppActivity"
             android:configChanges="orientation"
