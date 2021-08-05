@@ -1,5 +1,6 @@
 package android.fablabs.io.Activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -33,7 +34,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
@@ -42,11 +45,11 @@ class OtpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var auth: FirebaseAuth
         auth=FirebaseAuth.getInstance()
-        val storedVerificationId= intent.getStringExtra("storedVerificationId")
+         val storedVerificationId= intent.getStringExtra("storedVerificationId")
         super.onCreate(savedInstanceState)
         setContent {
             FabLabsioTheme {
-                 OtpScreen( )
+                 OtpScreen(storedVerificationId, auth )
             }
         }
     }
@@ -58,7 +61,8 @@ class OtpActivity : ComponentActivity() {
 fun DefaultPreview2() {
 
     FabLabsioTheme {
-       OtpScreen()
+        lateinit var auth: FirebaseAuth
+       OtpScreen("OTP",auth)
        
     }
 }
@@ -76,7 +80,7 @@ fun OtpTextField(State: MutableState<String>, onValueChange: (String, String) ->
         onValueChange = {val value = onValueChange(State.value, it)
             State.value = value},
 
-        textStyle = MaterialTheme.typography.h4.copy(textAlign = TextAlign.Center),
+        //textStyle = MaterialTheme.typography.h4.copy(textAlign = TextAlign.Center,fontSize = 5.sp),
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Number,
@@ -91,14 +95,14 @@ fun OtpTextField(State: MutableState<String>, onValueChange: (String, String) ->
 
 @Composable
 
-fun OtpScreen(){
+fun OtpScreen(storedVerificationId:String?, auth:FirebaseAuth){
     Scaffold {
         Column(modifier = Modifier
             .fillMaxSize()
             .background(Purple200),verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-            var length :Int =5
+            var length :Int =6
             val code: List<Char> by remember {
                 mutableStateOf(listOf())
             }
@@ -110,43 +114,53 @@ fun OtpScreen(){
                 temp
             }
             val context = LocalContext.current
-            val state = rememberSaveable { mutableStateOf("") }
+            val activity = LocalContext.current as Activity
             val state1 = rememberSaveable { mutableStateOf("") }
             val state2 = rememberSaveable { mutableStateOf("") }
             val state3 = rememberSaveable { mutableStateOf("") }
             val state4 = rememberSaveable { mutableStateOf("") }
+            val state5 = rememberSaveable { mutableStateOf("") }
+            val state6 = rememberSaveable { mutableStateOf("") }
+
             Row {
 
                 val focusReferences = List(6) { FocusRequester() }
-                OtpTextField(state,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[0], focusRequesters[1],
+                Spacer(modifier = Modifier.width(16.dp))
+                OtpTextField(state1,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[0], focusRequesters[1],
                     Modifier
                         .weight(1f)
                         .padding(vertical = 2.dp))
                 Spacer(modifier = Modifier.width(16.dp))
-                OtpTextField(state1,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[1], focusRequesters[2],
+                OtpTextField(state2,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[1], focusRequesters[2],
                     Modifier
                         .weight(1f)
                         .padding(vertical = 2.dp))
                 Spacer(modifier = Modifier.width(16.dp))
-                OtpTextField(state2,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[2], focusRequesters[3],
+                OtpTextField(state3,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[2], focusRequesters[3],
                     Modifier
                         .weight(1f)
                         .padding(vertical = 2.dp))
                 Spacer(modifier = Modifier.width(16.dp))
-                OtpTextField(state3,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[3], focusRequesters[4],
+                OtpTextField(state4,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[3], focusRequesters[4],
                     Modifier
                         .weight(1f)
                         .padding(vertical = 2.dp))
                 Spacer(modifier = Modifier.width(16.dp))
-                OtpTextField(state4,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[4], focusRequesters[0],
+                OtpTextField(state5,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[4], focusRequesters[5],
+                    Modifier
+                        .weight(1f)
+                        .padding(vertical = 2.dp))
+                Spacer(modifier = Modifier.width(16.dp))
+                OtpTextField(state6,onValueChange = { old, new -> if (new.length > 1 || new.any { !it.isDigit() }) old else new },focusRequesters[5], focusRequesters[0],
                     Modifier
                         .weight(1f)
                         .padding(vertical = 2.dp))
                 Spacer(modifier = Modifier.width(16.dp))
 
+
             }
             Button(onClick =  {
-                OtpValidation(state1.value,context)
+                OtpValidation(activity,storedVerificationId,state1.value,state2.value,state3.value,state4.value,state5.value,state6.value,context,auth)
 
             }, modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -162,17 +176,34 @@ fun OtpScreen(){
     }
 }
 
-fun OtpValidation(value:String, context:Context){
-    Toast.makeText(context, "$value", Toast.LENGTH_LONG).show()
-    if(value.isNotEmpty()){
+fun OtpValidation(activity:Activity,storedVerificationId:String?,value1:String,value2:String,value3:String,value4:String,value5:String,value6:String, context:Context,auth:FirebaseAuth){
+    var Otp = "$value1$value2$value3$value4$value5$value6"
+    Toast.makeText(context, "$Otp", Toast.LENGTH_LONG).show()
+    if(Otp.isNotEmpty()){
         val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-            storedVerificationId.toString(), otp)
-        signInWithPhoneAuthCredential(credential)
+            storedVerificationId.toString(), Otp)
+        signInWithPhoneAuthCredential(credential,context,auth,activity)
     }else{
         Toast.makeText(context,"Enter OTP", Toast.LENGTH_SHORT).show()
     }
 
 }
+private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential,context:Context,auth:FirebaseAuth,activity: Activity) {
+    auth.signInWithCredential(credential)
+        .addOnCompleteListener(activity) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(context,"Sucess", Toast.LENGTH_SHORT).show()
+                        } else {
+                            // Sign in failed, display a message and update the UI
+                            if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                                Toast.makeText(context,"$task", Toast.LENGTH_SHORT).show()
+                                Log.d("GFG" , "$task")
+                            }
+                        }
+        }
+}
+
 
 
 
