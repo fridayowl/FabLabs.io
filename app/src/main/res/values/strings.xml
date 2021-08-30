@@ -5,4 +5,5 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_phone_auth">PhoneAuth</string>
     <string name="title_activity_otp">OtpActivity</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
 </resources>

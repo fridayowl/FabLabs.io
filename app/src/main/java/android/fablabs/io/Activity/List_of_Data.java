@@ -228,7 +228,13 @@ public class List_of_Data extends AppCompatActivity {
                 });
             }
         });
-
+        binding.fitfive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(List_of_Data.this,SkillListView.class);
+                startActivity(in);
+            }
+        });
 
 
 

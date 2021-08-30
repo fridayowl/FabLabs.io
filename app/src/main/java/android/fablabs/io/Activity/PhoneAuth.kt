@@ -6,30 +6,31 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import android.fablabs.io.Activity.ui.theme.FabLabsioTheme
-import android.fablabs.io.ui.theme.Buttoncolor
-import android.fablabs.io.ui.theme.Purple200
-import android.fablabs.io.ui.theme.Purple700
-import android.fablabs.io.ui.theme.Teal200
+import android.fablabs.io.R
+import android.fablabs.io.ui.theme.*
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -56,113 +57,24 @@ class PhoneAuth : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FabLabsioTheme {
-                // A surface container using the 'background' color from the theme
-                Scaffold{
-                    Column(modifier = Modifier.fillMaxSize().background(Purple200),verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally) {
-                        val context = LocalContext.current
-                        val phoneValue = remember { mutableStateOf("") }
-                        OutlinedTextField(
-                            value = phoneValue.value,
-                            onValueChange = { phoneValue.value = it },
-                            label = { Text(text = "Enter Phone Number",color = Color.White) },
-                            placeholder = { Text(text = "Enter Phone Number",color = Color.White ) },
-                            singleLine = true,
-                            textStyle = TextStyle(color = Color.White),
-                            modifier = Modifier.fillMaxWidth(0.8f),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone,imeAction = ImeAction.Done,)
-                        )
-                         val activity = LocalContext.current as Activity
-                        if(phoneValue.value.length ==10) {
-                            Button(
-                                onClick = { checkphoneauth(phoneValue.value,context,activity)
-                                }, modifier = Modifier
-                                    .fillMaxWidth(0.8f)
-                                    .height(55.dp)
-                                    .padding(vertical = 4.dp).padding(top = 5.dp),
-                                colors = buttonColors(backgroundColor = Buttoncolor),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Text(text = "Sign Up", fontSize = 15.sp)
-                            }
-                        }else{
-                            Button(
-                                onClick = {
-                                    Toast.makeText(
-                                        context,
-                                        "You just clicked a Clickable",
-                                        Toast.LENGTH_LONG
-                                    )
-                                        .show()
-                                }, modifier = Modifier
-                                    .fillMaxWidth(0.8f)
-                                    .height(55.dp)
-                                    .padding(vertical = 4.dp).padding(top = 5.dp),
-                                colors = buttonColors(backgroundColor = Teal200),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Text(text = "Sign Up", fontSize = 15.sp)
-                            }
-                        }
-                    }
-
-                }
+                PhoneAuthScreen()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     FabLabsioTheme {
-        Scaffold {
-            Column(modifier = Modifier.fillMaxSize().background(Purple200),verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                val context = LocalContext.current
-                val phoneValue = remember { mutableStateOf("") }
-                OutlinedTextField(
-                    value = phoneValue.value,
-                    onValueChange = { phoneValue.value = it },
-                    label = { Text(text = "Enter Phone Number",color = Color.White) },
-                    placeholder = { Text(text = "Phone Number",color = Color.White ) },
-                    singleLine = true,
-                    textStyle = TextStyle(color = Color.White),
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone,imeAction = ImeAction.Done,)
-                )
-                Button(onClick = {
-
-
-                    if(phoneValue.value.length == 10){
-                        Toast.makeText(context, "You just clicked a Clickable", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                                 }, modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(55.dp)
-                    .padding(vertical = 4.dp).padding(top = 5.dp) ,
-                    colors=buttonColors(backgroundColor = Buttoncolor),
-                    shape = RoundedCornerShape(12.dp)) {
-                    Text(text = "Sign Up", fontSize = 15.sp)
-                }
-            }
-
-        }
-
+        PhoneAuthScreen()
     }
 }
 
 
-@Composable
-fun Textfield(text:String){
-    Text("$text")
-}
+
 
 fun  checkphoneauth(phonevalue :String,context:Context,activty :Activity){
     Toast.makeText(context, "You just clicked a $phonevalue", Toast.LENGTH_LONG)
@@ -223,3 +135,97 @@ fun  checkphoneauth(phonevalue :String,context:Context,activty :Activity){
 }
 
 
+
+
+@Composable
+fun PhoneTextField(phoneValue: MutableState<String>, onValueChange: (String, String) -> String = { _, new -> new }){
+    val focusManager = LocalFocusManager.current
+    val headingFont = Font(R.font.josefinsans_bold)
+    OutlinedTextField(
+        value = phoneValue.value,
+        onValueChange =  {
+            val value = onValueChange(phoneValue.value, it)
+            phoneValue.value = value },
+        label = { Text(text = "Enter Phone Number",color = Color.White) },
+        placeholder = { Text(text = "Phone Number",color = Color.White ) },
+        singleLine = true,
+        textStyle = TextStyle(color = Color.White, fontFamily = FontFamily(headingFont),fontSize = 30.sp),
+        modifier = Modifier.fillMaxWidth(0.8f),
+        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone,imeAction = ImeAction.Done,),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Buttoncolor,
+        unfocusedBorderColor = SecondaryColor
+    )
+    )
+}
+
+@Composable
+
+fun PhoneAuthScreen(){
+    val headingFont = Font(R.font.josefinsans_bold)
+    Scaffold {
+        Column(modifier = Modifier.fillMaxSize()
+            .background(Purple200)) {
+            Column(
+                modifier = Modifier
+                    .width(408.dp)
+                    .height(180.dp)
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.ic_homeimage),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(top=50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(
+                    text = "Fabregator 0.1",
+                    fontSize = 36.sp,
+                    color = Color(0xFFFFFFFF),
+
+                    fontFamily = FontFamily(headingFont)
+                )
+                Text(
+                    text = "''You dream it, we help you get it done''",
+                    fontSize = 20.sp,
+                    color = Color(0xFFFDDAE2)
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top=35.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                val context = LocalContext.current
+                val activity = LocalContext.current as Activity
+                val phoneValue = remember { mutableStateOf("") }
+                PhoneTextField(phoneValue,onValueChange = { old, new -> if (new.length > 10 || new.any { !it.isDigit() }) old else new })
+                Button(
+                    onClick = {
+                           if (phoneValue.value.length == 10) {
+
+                               checkphoneauth(phoneValue.value,context,activity)
+                           }
+                    }, modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(55.dp)
+                        .padding(vertical = 4.dp)
+                        .padding(top = 5.dp),
+                    colors = buttonColors(backgroundColor = Buttoncolor),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(text = "Sign Up", fontSize = 15.sp)
+                }
+            }
+        }
+
+
+
+    }
+}

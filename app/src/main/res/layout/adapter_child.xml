@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/rtl"
+    android:background="@drawable/drawable_innerheader"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_child"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Child"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <CheckBox android:id="@+id/check1"
+        android:focusable="false"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:buttonTint="@android:color/white"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#000000">
+
+    </View>
+
+</RelativeLayout>

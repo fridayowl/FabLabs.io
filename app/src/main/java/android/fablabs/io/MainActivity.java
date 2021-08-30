@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.fablabs.io.Activity.EditProfileActivity;
 import android.fablabs.io.Activity.Homepage;
 import android.fablabs.io.Activity.OtpActivity;
 import android.fablabs.io.Activity.PhoneAuth;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //        }, 1000);
 
-        Intent in = new Intent(MainActivity.this, PhoneAuth.class );
+        Intent in = new Intent(MainActivity.this, Homepage.class );
         startActivity(in );
     }
 

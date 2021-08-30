@@ -33,6 +33,7 @@ public class Variables {
 
 
 
+
     //shared preference
 
     public  static  String DEFAUlTDATA="Default.data";
