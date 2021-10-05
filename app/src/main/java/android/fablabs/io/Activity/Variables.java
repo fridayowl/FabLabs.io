@@ -7,6 +7,7 @@ public class Variables {
 
     public  static String  USERID= "UID";
     public  static String USEREMAILID="USEREMAILID";
+    public  static String USEREPHONENUMBER="USERPHONENUMBER";
     public static  String ACCOUNTCREATED= "null";
     public  static  String FLOW = "FLOW";
 
@@ -17,6 +18,7 @@ public class Variables {
     public  static  String UNIQUEID="UNIQUEID";
     public  static String  GIVENNAME= "GIVENNAME";
     public  static  String USERMODE="USERMODE";
+    public  static  String ACCOUNTCREATEDON="ACCOUNTCREATEDON";
     public static String DATABASEID="databaseid";
     public  static  String SELECTEDDATE= "selecteddate";
     public  static  String dateselected= "dateselected";

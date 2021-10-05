@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //        }, 1000);
 
-        Intent in = new Intent(MainActivity.this, Homepage.class );
+        Intent in = new Intent(MainActivity.this, PhoneAuth.class );
         startActivity(in );
     }
 

@@ -108,22 +108,24 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:padding="2dp"
-            android:layout_weight="0.9">
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/custombutton"
-                android:text="PROCEED"
-                android:gravity="center_horizontal|center_vertical"
-                android:textColor="#ffffff" />
+            android:layout_weight="0.9"
+            android:padding="2dp">
 
-          </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custombutton"
+                    android:text="PROCEED"
+                    android:textColor="#ffffff" />
+
+            </RelativeLayout>
         </FrameLayout>
     </LinearLayout>
 

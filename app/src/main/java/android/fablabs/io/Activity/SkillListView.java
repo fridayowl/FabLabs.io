@@ -70,9 +70,9 @@ public class SkillListView extends AppCompatActivity {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        listDataHeader.get(groupPosition) + " Expanded",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,9 +81,9 @@ public class SkillListView extends AppCompatActivity {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        listDataHeader.get(groupPosition) + " Collapsed",
+//                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -95,14 +95,14 @@ public class SkillListView extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(
+//                        getApplicationContext(),
+//                        listDataHeader.get(groupPosition)
+//                                + " : "
+//                                + listDataChild.get(
+//                                listDataHeader.get(groupPosition)).get(
+//                                childPosition), Toast.LENGTH_SHORT)
+//                        .show();
                 return false;
             }
         });
@@ -202,6 +202,7 @@ public class SkillListView extends AppCompatActivity {
         listDataHeader.add("Invention, intellectual property, and income");
         listDataHeader.add("Scale-up and production");
         listDataHeader.add("Project Presentation and documentation");
+        listDataHeader.add("Other Skills");
 
 
         // Adding child data
@@ -225,7 +226,7 @@ public class SkillListView extends AppCompatActivity {
         comingSoon.add("The Canyons");
         comingSoon.add("Europa Report");
 
-         for(int i=0;i<=15;i++) {
+         for(int i=0;i<=16;i++) {
              listDataChild.put(listDataHeader.get(i), top250); // Header, Child data
          }
     }

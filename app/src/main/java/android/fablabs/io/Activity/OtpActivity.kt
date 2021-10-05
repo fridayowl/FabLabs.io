@@ -2,8 +2,6 @@ package android.fablabs.io.Activity
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
 import android.fablabs.io.Activity.ui.theme.FabLabsioTheme
 import android.fablabs.io.R
 import android.fablabs.io.ui.theme.Buttoncolor
@@ -38,7 +36,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.*
+import com.google.firebase.database.*
 
 class OtpActivity : ComponentActivity() {
 
@@ -46,10 +46,11 @@ class OtpActivity : ComponentActivity() {
         lateinit var auth: FirebaseAuth
         auth=FirebaseAuth.getInstance()
          val storedVerificationId= intent.getStringExtra("storedVerificationId")
+        val storedphonenumber = intent.getStringExtra("phonenumber")
         super.onCreate(savedInstanceState)
         setContent {
             FabLabsioTheme {
-                 OtpScreen(storedVerificationId, auth )
+                 OtpScreen(storedVerificationId, auth,storedphonenumber )
             }
         }
     }
@@ -62,8 +63,8 @@ fun DefaultPreview2() {
 
     FabLabsioTheme {
         lateinit var auth: FirebaseAuth
-       OtpScreen("OTP",auth)
-       
+       OtpScreen("OTP", auth, "090808")
+
     }
 }
 
@@ -103,7 +104,7 @@ fun OtpTextField(State: MutableState<String>, onValueChange: (String, String) ->
 
 @Composable
 
-fun OtpScreen(storedVerificationId:String?, auth:FirebaseAuth){
+fun OtpScreen(storedVerificationId: String?, auth: FirebaseAuth, storedphonenumber: String?){
     Scaffold {
         Column(modifier = Modifier
             .fillMaxSize()
@@ -246,7 +247,8 @@ fun OtpScreen(storedVerificationId:String?, auth:FirebaseAuth){
                             state5.value,
                             state6.value,
                             context,
-                            auth
+                            auth,
+                            storedphonenumber
                         )
 
                     }, modifier = Modifier
@@ -264,26 +266,81 @@ fun OtpScreen(storedVerificationId:String?, auth:FirebaseAuth){
     }
 }
 
-fun OtpValidation(activity:Activity,storedVerificationId:String?,value1:String,value2:String,value3:String,value4:String,value5:String,value6:String, context:Context,auth:FirebaseAuth){
+fun OtpValidation(
+    activity: Activity,
+    storedVerificationId: String?,
+    value1: String,
+    value2: String,
+    value3: String,
+    value4: String,
+    value5: String,
+    value6: String,
+    context: Context,
+    auth: FirebaseAuth,
+    storedphonenumber: String?
+){
     var Otp = "$value1$value2$value3$value4$value5$value6"
     Toast.makeText(context, "$Otp", Toast.LENGTH_LONG).show()
     if(Otp.isNotEmpty()){
+
         val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
             storedVerificationId.toString(), Otp)
-        signInWithPhoneAuthCredential(credential,context,auth,activity)
+        signInWithPhoneAuthCredential(credential,context,auth,activity,storedphonenumber)
     }else{
         Toast.makeText(context,"Enter OTP", Toast.LENGTH_SHORT).show()
     }
 
 }
-private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential,context:Context,auth:FirebaseAuth,activity: Activity) {
+private fun signInWithPhoneAuthCredential(
+    credential: PhoneAuthCredential,
+    context: Context,
+    auth: FirebaseAuth,
+    activity: Activity,
+    storedphonenumber: String?
+) {
     auth.signInWithCredential(credential)
         .addOnCompleteListener(activity) { task ->
                         if (task.isSuccessful) {
 //                            Toast.makeText(context,"Sucess", Toast.LENGTH_SHORT).show()
 //                            Log.d("GFG" , "UID $task")
-                            var user = auth.currentUser?.uid
-//                            Toast.makeText(context,"Sucess", Toast.LENGTH_SHORT).show()
+                              var user = auth.currentUser?.uid
+                            val database = FirebaseDatabase.getInstance()
+                            val postsReference = database.getReference("fablabs-7546c-default-rtdb")
+                            postsReference.child(Variables.USERSINFODB).child(user.toString()).addListenerForSingleValueEvent(object :ValueEventListener{
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    TODO("Not yet implemented")
+                                    if (snapshot.value==null)
+                                    {
+                                        postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.USEREMAILID).setValue("null").addOnSuccessListener(
+                                            OnSuccessListener {
+                                                // Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
+                                            })
+                                        postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.USEREPHONENUMBER).setValue(storedphonenumber).addOnSuccessListener(
+                                            OnSuccessListener {
+                                                //   Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
+                                            })
+                                        postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.USERMODE).setValue("NORMAL").addOnSuccessListener(
+                                            OnSuccessListener {
+                                                //  Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
+                                            })
+                                        postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.ACCOUNTCREATEDON).setValue(ServerValue.TIMESTAMP).addOnSuccessListener(
+                                            OnSuccessListener {
+                                                // Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
+                                            })
+                                        Writesharedpreference()
+                                    }
+                                    else{
+                                        Writesharedpreference()
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                            })
+
+                            Toast.makeText(context,user.toString(), Toast.LENGTH_SHORT).show()
 //                            Log.d("GFG" , "UID $user")
 
                         } else {
@@ -301,7 +358,7 @@ private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential,contex
 
 
 
-fun OtpSuccess(){
+fun Writesharedpreference(){
     //signInButton.setVisibility(View.INVISIBLE);
 //    val sharedPreferences: SharedPreferences =activity.getSharedPreferences(String preferences_fileName,int mode)
 //    val editor:SharedPreferences.Editor =  sharedPreferences.edit()

@@ -118,6 +118,7 @@ fun  checkphoneauth(phonevalue :String,context:Context,activty :Activity){
 //             we will use this id to send the otp back to firebase
             val intent = Intent(context,OtpActivity::class.java)
             intent.putExtra("storedVerificationId",storedVerificationId)
+            intent.putExtra("phonenumber",number)
             context.startActivity(intent)
             activty.finish()
 
