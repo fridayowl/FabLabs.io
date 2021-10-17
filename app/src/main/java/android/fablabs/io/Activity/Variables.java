@@ -6,6 +6,7 @@ import java.util.List;
 public class Variables {
 
     public  static String  USERID= "UID";
+    public  static String USERSKILLSETS="SKILLSETDATABASE";
     public  static String USEREMAILID="USEREMAILID";
     public  static String USEREPHONENUMBER="USERPHONENUMBER";
     public static  String ACCOUNTCREATED= "null";

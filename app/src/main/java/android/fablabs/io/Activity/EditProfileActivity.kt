@@ -1,6 +1,9 @@
 package android.fablabs.io.Activity
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.fablabs.io.Activity.Variables.*
 import android.fablabs.io.Activity.ui.theme.FabLabsioTheme
 import android.fablabs.io.R
 import android.fablabs.io.ui.theme.Buttoncolor
@@ -38,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class EditProfileActivity : ComponentActivity() {
@@ -81,13 +83,15 @@ fun LoadUI( context: Context) {
         var snackbarstate = remember {
             mutableStateOf(false)
         }
-        var skilllist = mutableListOf<String>("", "", "", "", "")
+        var skilllist = mutableListOf<String>("", "", "", "", "","","","","","","","","","","","","")
         var otherskill = remember {
             mutableStateOf(false)
         }
         var otherskillname = remember {
             mutableStateOf("Other Skills")
         }
+        val UserName = remember { mutableStateOf("") }
+
         val (showDialog, setShowDialog) = remember { mutableStateOf(false) }
 
 
@@ -112,7 +116,6 @@ fun LoadUI( context: Context) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    val UserName = remember { mutableStateOf("") }
                     Username(
                         UserName,
                         onValueChange = { old, new -> if (new.length > 15 || new.any { it.isDigit() }) old else new },
@@ -332,7 +335,7 @@ fun LoadUI( context: Context) {
 
                     Button(
                         onClick = {
-                            save_Data( skilllist,context)
+                            save_Data( skilllist,context,UserName)
 
                             Log.d("COUNTER", "$skilllist")
 
@@ -595,8 +598,14 @@ fun DialogBox(
 
 fun save_Data(
     skilllist: MutableList<String>,
-    context: Context
+    context: Context,
+    UserName: MutableState<String>
 ) {
+    var userid=""
+
+    val sharedPrefFile = "fablabssharedpreference"
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+    userid = sharedPreferences.getString(USERID,"defaultname").toString()
 
     Log.d("onclick", "$skilllist")
 
@@ -604,12 +613,27 @@ fun save_Data(
     FirebaseApp.initializeApp(context)
      var DB = FirebaseDatabase.getInstance()
     var ROOT = DB.reference
-    Log.d("onclick", "abcd")
-    Log.d("onclick", "$ROOT")
+    Log.d("onclick",userid)
+    Log.d("onclick",ROOT.toString())
+    ROOT.child(USERSINFODB).child(userid).child(DISPLAYNAME).setValue(UserName.value).addOnSuccessListener()
+    for (element in skilllist)
+    {
 
-    Log.d("onclick", "abcd")
-    ROOT.child("users").child("userId").setValue("user").addOnSuccessListener()
-    Log.d("onclick", "abcd")
+        if(element!="")
+        {
+            Log.d("skilllist", element.toString())
+            ROOT.child(USERSKILLSETS).child(element.toString()).child(userid).setValue("1").addOnSuccessListener()
+            ROOT.child(USERSINFODB).child(userid).child(USERSKILLSETS).child(element.toString()).setValue("1").addOnSuccessListener()
+        }
+    }
+    writesharedpreference(context)
+
+//    Log.d("onclick", "abcd")
+//    Log.d("onclick", "$ROOT")
+//
+//    Log.d("onclick", "abcd")
+//    ROOT.child("users").child("userId").setValue("user").addOnSuccessListener()
+//    Log.d("onclick", "abcd")
 //    ROOT.child("abc").child("userId").setValue("nj")
 //        .addOnSuccessListener {
 //            // Write was successful!
@@ -624,7 +648,18 @@ fun save_Data(
 //        }
 }
 
+fun writesharedpreference(context: Context) {
+    val sharedPrefFile = "fablabssharedpreference"
+    val sharedPreferences: SharedPreferences =context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+    val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+    editor.putString(Variables.FLOW, "ALREADYADDEDDETAILS")
+    editor.commit()
+    val intent = Intent(context,Homepage::class.java)
+    context.startActivity(intent)
+
+}
+
 private fun <TResult> Task<TResult>.addOnSuccessListener() {
-    TODO("Not yet implemented")
+
     Log.d("onclick", "done")
 }

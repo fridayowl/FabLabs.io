@@ -2,6 +2,8 @@ package android.fablabs.io.Activity
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.fablabs.io.Activity.ui.theme.FabLabsioTheme
 import android.fablabs.io.R
 import android.fablabs.io.ui.theme.Buttoncolor
@@ -43,6 +45,7 @@ import com.google.firebase.database.*
 class OtpActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         lateinit var auth: FirebaseAuth
         auth=FirebaseAuth.getInstance()
          val storedVerificationId= intent.getStringExtra("storedVerificationId")
@@ -305,19 +308,18 @@ private fun signInWithPhoneAuthCredential(
 //                            Log.d("GFG" , "UID $task")
                               var user = auth.currentUser?.uid
                             val database = FirebaseDatabase.getInstance()
-                            val postsReference = database.getReference("fablabs-7546c-default-rtdb")
+                            val postsReference = database.reference
                             postsReference.child(Variables.USERSINFODB).child(user.toString()).addListenerForSingleValueEvent(object :ValueEventListener{
                                 override fun onDataChange(snapshot: DataSnapshot) {
-                                    TODO("Not yet implemented")
                                     if (snapshot.value==null)
                                     {
                                         postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.USEREMAILID).setValue("null").addOnSuccessListener(
                                             OnSuccessListener {
-                                                // Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
                                             })
                                         postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.USEREPHONENUMBER).setValue(storedphonenumber).addOnSuccessListener(
                                             OnSuccessListener {
-                                                //   Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
+                                                  //  Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
                                             })
                                         postsReference.child(Variables.USERSINFODB).child(user.toString()).child(Variables.USERMODE).setValue("NORMAL").addOnSuccessListener(
                                             OnSuccessListener {
@@ -327,20 +329,21 @@ private fun signInWithPhoneAuthCredential(
                                             OnSuccessListener {
                                                 // Toast.makeText(context,"success", Toast.LENGTH_SHORT).show()
                                             })
-                                        Writesharedpreference()
+                                        Writesharedpreference(context,storedphonenumber,user)
                                     }
                                     else{
-                                        Writesharedpreference()
+                                        Toast.makeText(context,snapshot.value.toString(), Toast.LENGTH_SHORT).show()
+                                        Writesharedpreference(context, storedphonenumber, user)
                                     }
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
-                                    TODO("Not yet implemented")
+
                                 }
 
                             })
 
-                            Toast.makeText(context,user.toString(), Toast.LENGTH_SHORT).show()
+                           //Toast.makeText(context,user.toString(), Toast.LENGTH_SHORT).show()
 //                            Log.d("GFG" , "UID $user")
 
                         } else {
@@ -358,14 +361,20 @@ private fun signInWithPhoneAuthCredential(
 
 
 
-fun Writesharedpreference(){
+fun Writesharedpreference(context: Context, storedphonenumber: String?, user: String?) {
+    Toast.makeText(context,"else", Toast.LENGTH_SHORT).show()
     //signInButton.setVisibility(View.INVISIBLE);
-//    val sharedPreferences: SharedPreferences =activity.getSharedPreferences(String preferences_fileName,int mode)
-//    val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-//    editor.putString(Variables.USERID, UID)
-//    editor.putString(Variables.USEREMAILID, personEmail)
-//    editor.putString(Variables.ACCOUNTCREATED, "YES")
-//    editor.putString(Variables.FLOW, "ALREADYSIGNEDIN")
-//    editor.commit()
+
+     val sharedPrefFile = "fablabssharedpreference"
+    val sharedPreferences: SharedPreferences =context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+    val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+    editor.putString(Variables.USERID, user)
+    editor.putString(Variables.USEREMAILID,"null")
+    editor.putString(Variables.USEREPHONENUMBER,storedphonenumber)
+    editor.putString(Variables.ACCOUNTCREATED, "YES")
+    editor.putString(Variables.FLOW, "ALREADYSIGNEDIN")
+    editor.commit()
+    val intent = Intent(context,EditProfileActivity::class.java)
+    context.startActivity(intent)
 }
 
